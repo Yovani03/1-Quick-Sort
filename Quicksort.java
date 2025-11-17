@@ -20,14 +20,14 @@ public class Quicksort {
                     numeros.add(Integer.parseInt(valor.trim()));
                 }
             } else {
-                System.out.println("El archivo está vacío o no se pudo leer la línea.");
+                System.out.println("El archivo no ta.");
             }
 
         } catch (IOException e) {
-            System.err.println("Error al leer el archivo: " + rutaArchivo);
+            System.err.println("Error al leer el archivo: ");
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            System.err.println("Error: El archivo contiene datos que no son números enteros.");
+            System.err.println("Error los datos solo deben ser enteros: ");
             e.printStackTrace();
         }
         
