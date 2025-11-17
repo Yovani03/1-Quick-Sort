@@ -24,10 +24,10 @@ public class Quicksort {
             }
 
         } catch (IOException e) {
-            System.err.println("Error : ");
+            System.err.println("Error al leer el archivo: " + rutaArchivo);
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            System.err.println("Error");
+            System.err.println("Error: El archivo contiene datos que no son números enteros.");
             e.printStackTrace();
         }
         
@@ -36,5 +36,39 @@ public class Quicksort {
 
     public void imprimirLista(List<Integer> lista) {
         System.out.println(lista);
+    }
+
+    public void sort(List<Integer> lista) {
+        quickSort(lista, 0, lista.size() - 1);
+    }
+
+    private void quickSort(List<Integer> lista, int bajo, int alto) {
+        if (bajo < alto) {
+            int indicePivote = particion(lista, bajo, alto);
+            
+            quickSort(lista, bajo, indicePivote - 1);
+            quickSort(lista, indicePivote + 1, alto);
+        }
+    }
+
+    private int particion(List<Integer> lista, int bajo, int alto) {
+        int pivote = lista.get(alto);
+        int i = (bajo - 1);
+
+        for (int j = bajo; j < alto; j++) {
+            if (lista.get(j) < pivote) {
+                i++;
+                swap(lista, i, j);
+            }
+        }
+
+        swap(lista, i + 1, alto);
+        return (i + 1);
+    }
+
+    private void swap(List<Integer> lista, int i, int j) {
+        int temp = lista.get(i);
+        lista.set(i, lista.get(j));
+        lista.set(j, temp);
     }
 }
