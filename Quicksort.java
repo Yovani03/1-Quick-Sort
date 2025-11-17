@@ -1,41 +1,40 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Quicksort {
 
-    public static void main(String[] args) {
-        System.out.println("Inicio ");
-
-        
+    public List<Integer> leerDatos(String rutaArchivo) {
         List<Integer> numeros = new ArrayList<>();
-        String nombreArchivo = "datos.txt";
-
         
-        try {
-            Scanner scanner = new Scanner(new File(nombreArchivo));
-            System.out.println("Leyendo'" + nombreArchivo + "'...");
+        try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
             
-            while (scanner.hasNextInt()) {
-                numeros.add(scanner.nextInt());
+            String linea = reader.readLine();
+            
+            if (linea != null && !linea.isEmpty()) {
+                String[] valores = linea.split(" ");
+                
+                for (String valor : valores) {
+                    numeros.add(Integer.parseInt(valor.trim()));
+                }
+            } else {
+                System.out.println("El archivo está vacío o no se pudo leer la línea.");
             }
-            scanner.close();
 
-            
-            System.out.println("Datos:");
-            System.out.println(numeros);
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Error: No se pudo encontrar el archivo " + nombreArchivo);
+        } catch (IOException e) {
+            System.err.println("Error : ");
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.err.println("Error");
             e.printStackTrace();
         }
-
-       
-
-        System.out.println("Fin ");
+        
+        return numeros;
     }
 
-    
+    public void imprimirLista(List<Integer> lista) {
+        System.out.println(lista);
+    }
 }
